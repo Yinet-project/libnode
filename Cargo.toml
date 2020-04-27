@@ -1,0 +1,21 @@
+[package]
+name = "libnode"
+version = "0.1.0"
+authors = ["luo4lu <luo4lu@163.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+kv-hal-sled = { git = "https://github.com/Yinet-project/kv-hal-sled" }
+kv-hal = { git = "https://github.com/Yinet-project/kv-hal" }
+rust-crypto = "0.2.36"
+rand = "0.7.3"
+async-trait = "0.1"
+sled = "0.30.3"
+tokio = { version = "0.2", features = ["full"] }
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false
+features = ["precommit-hook", "run-cargo-fmt", "run-cargo-test", "run-cargo-clippy"]
