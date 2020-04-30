@@ -12,10 +12,6 @@ pub struct NodeInfo {
 }
 
 impl NodeInfo {
-    async fn get_value(string: &str, key: &[u8]) -> Result<Option<Vec<u8>>, sled::Error> {
-        let stor = SledStorage::new(string);
-        stor.get(key).await
-    }
     pub async fn new(string: &str, key: &[u8]) -> Self {
         let seed = NodeInfo::get_value(string, key).await;
         if let Ok(seed) = seed {
@@ -28,6 +24,13 @@ impl NodeInfo {
             NodeInfo::rebuild_key()
         }
     }
+
+    //get seed rand sum from kv-hal-sled trait in the get function
+    async fn get_value(string: &str, key: &[u8]) -> Result<Option<Vec<u8>>, sled::Error> {
+        let stor = SledStorage::new(string);
+        stor.get(key).await
+    }
+
     //如果value存在初始化结构体
     fn init_node(seed_s: &[u8]) -> Self {
         //于rebuild_key接口功能类似，不产生随机种子而是根据入参计算秘钥，秘钥-》nodeid
